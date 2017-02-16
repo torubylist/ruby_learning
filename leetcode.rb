@@ -49,7 +49,7 @@ class Leetcode
 
   def group_anagrams(strs)
     strs.inject(Hash.new([])) do |h,s|
-      h(s.chars.sort.join) += [s]
+      h[s.chars.sort.join] += [s]
       h
     end.map{|k,v| v.sort}
   end
@@ -59,9 +59,9 @@ class Leetcode
   end
 
   def majority_element(nums)
-    nums.inject([0,0]) { |[x,c] ,i|
-      c == 0 || x == i ? [i ,c+1 ] : [x ,c-1]
-    }[0]
+    # nums.inject([0,0]) { |[x,c] ,i|
+    #   c == 0 || x == i ? [i ,c+1 ] : [x ,c-1]
+    # }[0]
   end 
 
   def factorial_traing_zeroes
@@ -70,6 +70,49 @@ class Leetcode
   end 
 
 
+  def jump(n)
+    if n == 1 || n == 2
+      return n
+    end
+    return jump(n-1) + jump(n-2)
+  end
+
+  def odd_even_change(nums)
+    # nums.group_by{|n| n % 2}.map{|k,v| v}.sort.to_h.map{|k,v| v}.reverse.flatten
+    len = nums.size
+    i = 0
+    j = len
+    while ( i < j ) do
+      if nums[i].odd?
+        i += 1
+      elsif nums[j].even?
+        j -= 1
+      else
+        t       = nums[i]
+        nums[i] = nums[j]
+        nums[j] = t
+      end
+    end
+  end
+  def substring(str1,str2)
+    s1   = str1
+    s2   = str2
+    len  = str1.size
+    hash = 0
+    (0...len).each do |i|
+      hash |= ( 1 << ( s1[i].ord - 65 ))
+      puts hash
+    end
+    (0...s2.size).each do |i|
+      if ( hash & ( 1 << (s2[i].ord - 65 )) == 0 )
+        return "not include"
+      end
+    end
+    return "include"
+  end
+  def quick_sort(arr)
+    ( x = arr.pop ) ? quick_sort( arr.select{|i| i <= x } )+ [x] + quick_sort( arr.select{|i| i >= x}) : []
+  end
 end
 obj = Leetcode.new
 #p obj.first_missing_positive([1,2,3])
@@ -79,4 +122,7 @@ obj = Leetcode.new
 #target = 19
 #
 #p obj.two_sum(nums,target).inspect
-p obj.factorial_training_zeroes
+# p obj.factorial_training_zeroes
+#puts obj.jump(6)
+#puts obj.substring('ABDE','C')
+p obj.quick_sort([1,4,6,3,10,5])

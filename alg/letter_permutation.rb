@@ -22,33 +22,33 @@
 
 #1、已知字符串里的字符是互不相同的，现在任意组合，比如abc，则输出a，b, c,ab，
 #ac,bc,abc编程按照字典序输出所有的组合。
-def letter_permutation(str)
-  res    = Array.new
-  return if str.nil?
-  len    = str.size
-  (1..len).each do |i|
-    result = Array.new
-    dfs(str,i,result,'')
-    res << result
-  end
-  res
-end
-
-def dfs(str,m,result, s)
-  if str.nil? || str.empty?
-    return
-  end
-  if m == 0
-    result << s
-    return
-  end
-  s    += str[0]
-  step += 1
-  #new_str = str[step..-1]
-  dfs(str[step..-1], m - 1, result, s)
-  s   = s[0...-1]
-  dfs(str[step..-1], m, result, s)
-end
+#def letter_permutation(str)
+#  res    = Array.new
+#  return if str.nil?
+#  len    = str.size
+#  (1..len).each do |i|
+#    result = Array.new
+#    dfs(str,i,result,'')
+#    res << result
+#  end
+#  res
+#end
+#
+#def dfs(str,m,result, s)
+#  if str.nil? || str.empty?
+#    return
+#  end
+#  if m == 0
+#    result << s
+#    return
+#  end
+#  s    += str[0]
+#  step += 1
+#  #new_str = str[step..-1]
+#  dfs(str[step..-1], m - 1, result, s)
+#  s   = s[0...-1]
+#  dfs(str[step..-1], m, result, s)
+#end
 
 #1、已知字符串里的字符是互不相同的，现在任意组合，比如abc，则输出abc，acb, bac，
 #bca，cab,cba编程按照字典序输出所有的组合。
@@ -93,10 +93,9 @@ def dfs(step, sum)
   (0..10).each do |i|
     #new_arr   = arr.dup
     #new_arr.push << i
-    sum  = sum - i 
-    dfs(step-1, sum)
+    dfs(step-1, sum-i)
   end
 end
 @total = 0
-dfs(10,80)
+dfs(10,99)
 p @total

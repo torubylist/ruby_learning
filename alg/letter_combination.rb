@@ -13,7 +13,7 @@ def letter_combination(digits)
   if length == 0
     return res
   end
-  def(0,'',res,length)
+  dfs(0,'',res,length)
   return res
 end
 def dfs(num, string, res, length)
